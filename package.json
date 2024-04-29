@@ -1,0 +1,42 @@
+{
+  "name": "sakai-vue",
+  "version": "3.10.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
+  },
+  "dependencies": {
+    "@formkit/i18n": "^1.6.2",
+    "@formkit/themes": "^1.6.2",
+    "@formkit/vue": "^1.6.2",
+    "axios": "^1.6.8",
+    "chart.js": "3.3.2",
+    "dayjs": "^1.11.10",
+    "pinia": "^2.1.7",
+    "pinia-plugin-persistedstate": "^3.2.1",
+    "primeflex": "^3.3.1",
+    "primeicons": "^6.0.1",
+    "primevue": "3.49.1",
+    "vue": "^3.2.41",
+    "vue-router": "^4.3.0"
+  },
+  "devDependencies": {
+    "@ianvs/prettier-plugin-sort-imports": "^4.2.1",
+    "@typescript-eslint/eslint-plugin": "^7.7.0",
+    "@typescript-eslint/parser": "^7.7.0",
+    "@vitejs/plugin-vue": "^4.6.2",
+    "@vue/eslint-config-prettier": "^7.1.0",
+    "@vue/eslint-config-typescript": "^13.0.0",
+    "autoprefixer": "^10.4.19",
+    "eslint": "^8.57.0",
+    "eslint-plugin-vue": "^9.24.1",
+    "postcss": "^8.4.38",
+    "prettier": "^2.8.8",
+    "sass": "^1.74.1",
+    "typescript": "^5.4.5",
+    "typescript-eslint": "^7.7.0",
+    "vite": "^4.5.3"
+  }
+}
