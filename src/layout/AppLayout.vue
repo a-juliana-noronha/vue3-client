@@ -79,7 +79,7 @@ const isOutsideClicked = (event) => {
       </div>
       <app-footer></app-footer>
     </div>
-    <!-- <app-config class="hidden"></app-config> -->
+    <app-config class="hidden"></app-config>
     <!-- <div class="layout-mask"></div> -->
     <Toast position="bottom-center" />
   </div>
