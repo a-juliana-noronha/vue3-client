@@ -87,14 +87,4 @@ export const routes = [
       public: true,
     },
   },
-  {
-    path: '/auth/access',
-    name: 'accessDenied',
-    component: () => import('@/views/pages/Auth/Access.vue'),
-  },
-  {
-    path: '/auth/error',
-    name: 'error',
-    component: () => import('@/views/pages/Auth/Error.vue'),
-  },
 ]
