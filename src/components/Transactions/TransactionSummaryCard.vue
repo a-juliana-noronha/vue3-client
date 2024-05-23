@@ -3,9 +3,11 @@ import BaseLoading from '@/components/Base/BaseLoading.vue'
 import { useFetch } from '@/composables'
 import services from '@/services'
 import { iFetchOptions, iTransaction, iTransactionType } from '@/types'
+import { formatCurrency } from '@/utils/formatCurrency'
 import { stringToColor } from '@/utils/stringToColor'
 import dayjs from 'dayjs'
 import { computed, ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 type iProps = {
   transactionType: iTransactionType
@@ -18,7 +20,7 @@ const formattedDate = computed<string>(() =>
   dayjs(date.value).format('MM-YYYY')
 )
 
-const handleUpdateDate = (value: Date): void => {
+const handleUpdateDate = (value: any): void => {
   date.value = value
   fetch(fetchOptions.value)
 }
@@ -97,13 +99,18 @@ const isPercentSummaryType = computed<boolean>(
 const toggleSummaryType = (value: iSummaryType): void => {
   summaryType.value = value
 }
+
+const router = useRouter()
+const handleAdd = (): void => {
+  router.push({ name: 'expenses', query: { nova: 'despesa' } })
+}
 </script>
 
 <template>
-  <div class="card">
+  <div class="card mb-0">
     <div class="flex justify-content-between align-items-center">
       <h5 class="flex align-items-center justify-content-between gap-3 w-full">
-        Despesas
+        Mês
         <Calendar
           :model-value="date"
           show-icon
@@ -128,7 +135,7 @@ const toggleSummaryType = (value: iSummaryType): void => {
       <ButtonGroup class="flex mb-3">
         <Button
           label="Percentual"
-          class="flex-1"
+          class="flex-1 p-2"
           icon="pi pi-percentage"
           :outlined="!isPercentSummaryType"
           @click="toggleSummaryType('percent')"
@@ -136,7 +143,7 @@ const toggleSummaryType = (value: iSummaryType): void => {
         <Button
           label="Valor"
           icon="pi pi-dollar"
-          class="flex-1"
+          class="flex-1 p-2"
           :outlined="isPercentSummaryType"
           @click="toggleSummaryType('amount')"
         />
@@ -151,7 +158,7 @@ const toggleSummaryType = (value: iSummaryType): void => {
 
           <i
             v-if="category.percent > 100"
-            class="pi pi-fw pi-exclamation-triangle text-primary"
+            class="pi pi-fw pi-exclamation-triangle text-orange-500"
           />
         </span>
 
@@ -166,7 +173,8 @@ const toggleSummaryType = (value: iSummaryType): void => {
               <div :style="getPercentBarStyle(category)" />
             </div>
             <small v-if="category.monthly_limit" class="text-gray-400"
-              >Limite mensal: R$ {{ category.monthly_limit }}</small
+              >Limite mensal:
+              {{ formatCurrency(category.monthly_limit) }}</small
             >
           </div>
           <div class="flex align-items-center gap-1">
@@ -177,7 +185,7 @@ const toggleSummaryType = (value: iSummaryType): void => {
                 <span v-if="isPercentSummaryType">
                   {{ category.percent }}%</span
                 >
-                <span v-else> R$ {{ category.amount }} </span>
+                <span v-else> {{ formatCurrency(category.amount) }} </span>
               </template>
               <template v-else> ∞ </template>
             </span>
@@ -185,6 +193,14 @@ const toggleSummaryType = (value: iSummaryType): void => {
         </div>
       </li>
     </ul>
+    <hr class="my-4" />
+    <div class="flex w-full justify-content-end">
+      <div class="flex align-items-center gap-2 font-bold text-lg">
+        Nova Despesa
+
+        <Button icon="pi pi-plus" rounded raised @click="handleAdd" />
+      </div>
+    </div>
   </div>
 </template>
 

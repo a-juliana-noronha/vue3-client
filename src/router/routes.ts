@@ -43,11 +43,6 @@ export const routes = [
         name: 'cards',
         component: () => import('@/views/pages/Cards/Cards.vue'),
       },
-      {
-        path: '/novo-cartao',
-        name: 'cards.create',
-        component: () => import('@/views/pages/Cards/CardCreate.vue'),
-      },
       // {
       //   path: '/metas',
       //   name: 'goals',

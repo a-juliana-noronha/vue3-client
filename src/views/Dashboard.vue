@@ -4,7 +4,8 @@ import TransactionRemindersSummaryCard from '@/components/Transactions/Transacti
 import TransactionSummaryCard from '@/components/Transactions/TransactionSummaryCard.vue'
 import { useLayout } from '@/layout/composables/layout'
 import { ref, watch } from 'vue'
-import { useRouter } from 'vue-router'
+
+// import { useRouter } from 'vue-router'
 
 const { isDarkTheme } = useLayout()
 
@@ -31,7 +32,7 @@ const { isDarkTheme } = useLayout()
 //   ],
 // })
 
-const lineOptions = ref(null)
+const lineOptions = ref<any>(null)
 // const productService = new ProductService()
 
 // onMounted(() => {
@@ -108,36 +109,34 @@ watch(
   { immediate: true }
 )
 
-const router = useRouter()
+// const router = useRouter()
 
-const handleNewExpense = (): void => {
-  router.push({ name: 'expenses', query: { nova: 'despesa' } })
-}
-
-const handleNewReminder = (): void => {
-  router.push({ name: 'reminders', query: { novo: 'lembrete' } })
-}
+// const handleNewReminder = (): void => {
+//   router.push({ name: 'reminders', query: { novo: 'lembrete' } })
+// }
 </script>
 
 <template>
-  <h3 class="flex justify-content-between align-items-center">Resumo</h3>
+  <h3 class="flex justify-content-between align-items-center">
+    Resumo das Despesas
+  </h3>
   <div class="grid">
-    <div class="col-12"></div>
     <div class="col-12 xl:col-6 flex flex-column gap-3">
-      <Button
-        icon="pi pi-calculator"
+      <!-- <Button
+        icon="pi pi-plus"
         class="w-full"
-        label="Nova Despesa"
+        label="Criar Nova Despesa"
+        raised
         @click="handleNewExpense"
-      />
+      /> -->
       <TransactionSummaryCard transaction-type="expense" />
-
-      <Button
-        icon="pi pi-clock"
+      <!-- <Button
+        icon="pi pi-plus"
         class="w-full"
-        label="Novo Lembrete"
+        label="Criar Novo Lembrete"
+        raised
         @click="handleNewReminder"
-      />
+      /> -->
       <TransactionRemindersSummaryCard transaction-type="expense" />
     </div>
     <!-- <div class="col-12 xl:col-6 flex flex-column gap-3">

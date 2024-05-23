@@ -3,6 +3,7 @@ import BaseLoading from '@/components/Base/BaseLoading.vue'
 import { useFetch } from '@/composables'
 import services from '@/services'
 import { iFetchOptions, iReminder, iTransactionType } from '@/types'
+import { formatCurrency } from '@/utils/formatCurrency'
 import dayjs from 'dayjs'
 import { useToast } from 'primevue/usetoast'
 import { computed, ref } from 'vue'
@@ -140,7 +141,7 @@ const handleUpdatePaid = async (item: iReminder): Promise<void> => {
             class="font-medium flex-1 transaction-summary-card__percent-value"
             :style="{ color: transaction.color }"
           >
-            R$ {{ transaction.amount }}
+            {{ formatCurrency(transaction.amount) }}
             <small class="text-gray-400 block text-right"
               >Todo dia {{ transaction.due_day }}</small
             >

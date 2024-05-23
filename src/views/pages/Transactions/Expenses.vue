@@ -14,6 +14,8 @@ import {
   iTransaction,
   iTransactionFilter,
 } from '@/types'
+import { formatCurrency } from '@/utils/formatCurrency'
+import { formatDate } from '@/utils/formatDate'
 import dayjs from 'dayjs'
 import { computed, onBeforeMount, ref } from 'vue'
 import { useRoute } from 'vue-router'
@@ -51,6 +53,7 @@ const filter = ref<iTransactionFilter>({
   to: dayjs(currentDate).endOf('month').toDate(),
   category_ids: [],
   has_payment_plan: null,
+  description: '',
 })
 const showFilter = ref<boolean>(false)
 
@@ -62,7 +65,7 @@ const toggleFilter = (): void => {
   showFilter.value = !showFilter.value
 }
 
-const handleFilterFromUpdate = (value: string): void => {
+const handleFilterFromUpdate = (value: any): void => {
   const from = dayjs(value)
   const to = dayjs(filter.value.to)
 
@@ -157,7 +160,19 @@ const handleCancel = (): void => {
 }
 
 const getItemDate = (item: iTransaction): string =>
-  item.payment_plan ? item.payment_plan.created_at : item.created_at
+  formatDate(item.payment_plan ? item.payment_plan.created_at : item.created_at)
+
+// @ts-ignore
+const filteredData = computed<iTransaction[]>(() =>
+  filter.value.description
+    ? data.value.filter((transaction) =>
+        // @ts-ignore
+        transaction.name
+          .toLowerCase()
+          .includes(filter.value.description.toLowerCase())
+      )
+    : data.value
+)
 </script>
 
 <template>
@@ -196,6 +211,10 @@ const getItemDate = (item: iTransaction): string =>
         </template>
       </FormKit>
     </div>
+    <InputText
+      v-model="filter.description"
+      placeholder="Digite para pesquisar..."
+    />
     <Panel v-if="showFilter" header="Filtro">
       <div class="flex flex-column gap-3">
         <FormKit name="categories" label="Categorias">
@@ -228,7 +247,7 @@ const getItemDate = (item: iTransaction): string =>
 
     <BaseDataList
       :loading="loading"
-      :data="data"
+      :data="filteredData"
       :readonly="isReadonly"
       @edit="handleEdit"
       @view="handleView"
@@ -238,7 +257,7 @@ const getItemDate = (item: iTransaction): string =>
         <div class="text-900 w-full flex flex-column gap-1">
           <div class="font-bold text-xl flex align-items-center gap-3">
             <span>
-              R$ {{ item.amount }}
+              {{ formatCurrency(item.amount) }}
               <span
                 v-if="item.payment_plan"
                 class="inline-flex align-items-center gap-1"
@@ -256,18 +275,16 @@ const getItemDate = (item: iTransaction): string =>
             <small>{{ item.category?.name || 'Sem categoria' }}</small></span
           >
 
-          <div>
-            <small class="text-gray-400">
-              {{ getItemDate(item) }}
-            </small>
-            <small v-if="item.date" class="text-gray-400">
-              / {{ item.date }}</small
-            >
-          </div>
+          <small class="text-gray-400">
+            Criado em: {{ getItemDate(item) }}
+          </small>
+          <small v-if="item.date" class="text-gray-400 block">
+            Competência: {{ formatDate(item.date) }}</small
+          >
 
           <small v-if="item.amount_per_installment" class="text-gray-400">
-            Valor total R$
-            {{ item.amount }}
+            Valor total
+            {{ formatCurrency(item.amount) }}
           </small>
         </div>
       </template>

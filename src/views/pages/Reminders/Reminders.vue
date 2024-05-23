@@ -7,6 +7,8 @@ import { useFetch } from '@/composables'
 import useDialog from '@/composables/useDialog'
 import services from '@/services'
 import { iFetchOptions, iPartial, iReminder } from '@/types'
+import { formatCurrency } from '@/utils/formatCurrency'
+import { formatDate } from '@/utils/formatDate'
 import dayjs from 'dayjs'
 import { computed, onBeforeMount, ref } from 'vue'
 import { useRoute } from 'vue-router'
@@ -159,7 +161,7 @@ const handleCancel = (): void => {
       <template #item="{ item }">
         <div class="text-900 w-full flex flex-column gap-1">
           <div class="font-bold text-xl flex align-items-center gap-3">
-            <span> R$ {{ item.amount }} </span>
+            <span> {{ formatCurrency(item.amount) }} </span>
             <!-- <i
               class="pi pi-fw pi-bell cursor-pointer"
               :class="getStatusColor(item)"
@@ -171,15 +173,17 @@ const handleCancel = (): void => {
           >
 
           <div>
-            <small class="text-gray-400">{{ item.date }}</small>
-            <small v-if="item.due_day" class="text-gray-400">
-              Todo dia {{ item.due_day }}</small
+            <small v-if="item.due_day" class="text-gray-400 mb-1 block">
+              Vencimento todo dia {{ item.due_day }}</small
+            >
+            <small class="text-gray-400 block"
+              >Criado em: {{ formatDate(item.date) }}</small
             >
           </div>
 
           <small v-if="item.total_amount" class="text-gray-400">
-            Valor total R$
-            {{ item.total_amount }}
+            Valor total
+            {{ formatCurrency(item.total_amount) }}
           </small>
         </div>
       </template>

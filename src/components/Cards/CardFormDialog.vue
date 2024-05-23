@@ -2,6 +2,7 @@
 import BaseDialog from '@/components/Base/BaseDialog.vue'
 import BaseIconPicker from '@/components/Base/BaseIconPicker.vue'
 import CardBrandDropdown from '@/components/Cards/CardBrandDropdown.vue'
+import InputCurrency from '@/components/InputCurrency.vue'
 import { useForm } from '@/composables'
 import services from '@/services'
 import { iCard, iPartial } from '@/types'
@@ -78,13 +79,7 @@ const handleCancel = (): void => {
 
       <FormKit name="limit" label="Limite">
         <template #input>
-          <InputNumber
-            v-model="form.limit"
-            locale="pt-BR"
-            mode="currency"
-            currency="BRL"
-            :min-fraction-digits="2"
-          />
+          <InputCurrency v-model="form.limit" />
         </template>
       </FormKit>
 

@@ -6,6 +6,7 @@ import { useFetch } from '@/composables'
 import useDialog from '@/composables/useDialog'
 import services from '@/services'
 import { iCategory, iPartial } from '@/types'
+import { formatCurrency } from '@/utils/formatCurrency'
 import { ref } from 'vue'
 
 const { visible, show, hide } = useDialog()
@@ -77,7 +78,7 @@ const handleSuccess = (): void => {
 
         <div v-if="item.monthly_limit">
           <small class="text-gray-400">
-            Limite mensal: R$ {{ item.monthly_limit }}</small
+            Limite mensal: {{ formatCurrency(item.monthly_limit) }}</small
           >
         </div>
       </div>

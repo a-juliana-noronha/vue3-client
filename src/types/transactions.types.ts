@@ -38,4 +38,5 @@ export type iTransactionFilter = {
   to: string | Date | null
   category_ids: number[]
   has_payment_plan: boolean | null
+  description: string
 }

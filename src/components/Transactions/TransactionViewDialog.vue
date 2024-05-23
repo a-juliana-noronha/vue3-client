@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import BaseDialog from '@/components/Base/BaseDialog.vue'
 import { iPartial, iTransaction } from '@/types'
+import { formatCurrency } from '@/utils/formatCurrency'
 import { computed, ref } from 'vue'
 
 type iProps = {
@@ -97,8 +98,8 @@ const isAccountPaymentType = computed<boolean>(
             {{ transaction.payment_plan.total_installments }}
           </span>
           <span>
-            Valor Total: R$
-            {{ transaction.payment_plan.total_amount }}
+            Valor Total:
+            {{ formatCurrency(transaction.payment_plan.total_amount) }}
           </span>
         </div>
       </template>

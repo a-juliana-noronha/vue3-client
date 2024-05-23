@@ -7,9 +7,9 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 const form = ref<iCreateAccountParams>({
-  name: 'Teste',
-  email: 'teste+001@teste.com',
-  password: '1234',
+  name: '',
+  email: '',
+  password: '',
 })
 
 const toast = useToast()

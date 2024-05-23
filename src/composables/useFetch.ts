@@ -2,7 +2,7 @@ import { iFetchOptions } from '@/types'
 import { computed, onMounted, ref } from 'vue'
 
 type iUseFetch<T> = {
-  initialValue
+  initialValue: T | T[]
   handler: any
   options?: iFetchOptions
   reduce?: (data: any) => any

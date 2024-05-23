@@ -6,6 +6,7 @@ import { useFetch } from '@/composables'
 import useDialog from '@/composables/useDialog'
 import services from '@/services'
 import { iCard, iPartial } from '@/types'
+import { formatCurrency } from '@/utils/formatCurrency'
 import { ref } from 'vue'
 
 const { visible, show, hide } = useDialog()
@@ -46,7 +47,7 @@ const handleEdit = (item: iCard): void => {
   show()
 }
 
-const handleDelete = (item: iAccount): void => {
+const handleDelete = (item: iCard): void => {
   card.value = item
   showDeleteDialog()
 }
@@ -85,11 +86,15 @@ const handleSuccess = (): void => {
         /></span>
 
         <div v-if="item.limit">
-          <small class="text-gray-400"> Limite: R$ {{ item.limit }}</small>
+          <small class="text-gray-400">
+            Limite: {{ formatCurrency(item.limit) }}</small
+          >
         </div>
 
         <div v-if="item.due_day">
-          <small class="text-gray-400"> Vencimento: {{ item.due_day }}</small>
+          <small class="text-gray-400">
+            Vencimento: todo dia {{ item.due_day }}</small
+          >
         </div>
         <small v-if="item.cost_center" class="text-gray-400 block">
           Centro de Custo: {{ item.cost_center.name }}
